@@ -1,0 +1,66 @@
+package ge.tbc.tbcitacademy.steps;
+
+import com.codeborne.selenide.SelenideElement;
+import ge.tbc.tbcitacademy.data.Constants;
+import org.testng.Assert;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
+
+public class OrderPageSteps {
+
+    public OrderPageSteps UnitPriceEqualsTotalPrice(){
+        Assert.assertEquals(getUnitPrice(), getTotalPrice());
+        return this;
+    }
+
+    public OrderPageSteps setQuantityOnTwo(){
+        $("span.k-input").click();
+        $(byText(Constants.TWO)).click();
+        return this;
+    }
+
+    public OrderPageSteps isExpectedTotalPriceCorrect(){
+        $x("//div[contains(text(), 'Save')]").shouldBe(visible);
+        double totalPriceAfterDiscount = getTotalPrice();
+        double expectedTotalPrice = getUnitPrice() * 2;
+        Assert.assertEquals(expectedTotalPrice, totalPriceAfterDiscount);
+        return this;
+    }
+
+    public OrderPageSteps isDiscountCorrectOnHover(){
+        double discountNotOnHover = getDiscountAmounts($(".u-fr.e2e-total-discounts-price"));
+        $("[class='far fa-question-circle tooltip-icon']").hover();
+        double discountOnHover = getDiscountAmounts($(".u-pr5.e2e-licenses-discounts"));
+        Assert.assertEquals(discountOnHover,discountNotOnHover);
+        return this;
+    }
+
+    public void clickOnContinue(){
+        $(".btn-content.ng-star-inserted").scrollTo().click();
+    }
+
+    public double getTotalPrice() {
+        String tp = $(".u-fr.e2e-total-price").getText();
+        return Double.parseDouble(tp
+                .replace("$", "")
+                .replace(",", "")
+                .replace("US ", ""));
+    }
+
+    public double getUnitPrice() {
+        String up = $("span.e2e-price-per-license.ng-star-inserted").getText();
+        return Double.parseDouble(up
+                .replace("$", "")
+                .replace(",", ""));
+    }
+    public double getDiscountAmounts(SelenideElement element){
+        String text = element.getText();
+        return Double.parseDouble(text
+                .replace("$", "")
+                .replace("-", "")
+                .replace(",", ""));
+    }
+}

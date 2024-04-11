@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="SelenideTestsSuite">
+    <test name="FirefoxTest">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="ge.tbc.tbcitacademy.Tests.SelenideTests.SelenideTests2">
+                <methods>
+                    <include name="validateDemosDesign"/>
+                    <include name="validateOrderMechanics"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="ChromeTest">
+        <parameter name="browser" value="Chrome"/>
+        <classes>
+            <class name="ge.tbc.tbcitacademy.Tests.SelenideTests.SelenideTests2">
+                <methods>
+                    <include name="validateDemosDesign"/>
+                    <include name="validateOrderMechanics"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="EdgeTest">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="ge.tbc.tbcitacademy.Tests.SelenideTests.SelenideTests2">
+                <methods>
+                    <include name="validateDemosDesign"/>
+                    <include name="validateOrderMechanics"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
