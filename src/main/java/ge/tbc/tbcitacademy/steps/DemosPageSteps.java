@@ -3,6 +3,7 @@ package ge.tbc.tbcitacademy.steps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import ge.tbc.tbcitacademy.data.Constants;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
@@ -11,7 +12,9 @@ import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.*;
 
 public class DemosPageSteps {
-    SoftAssert sfa;
+    SoftAssert sfa = new SoftAssert();
+
+    @Step("validate that the color of hover is purple and text is present")
     public DemosPageSteps validateColorAndTextForWeb(){
         ElementsCollection webPics = $$x("//h2[@id='web']/following:" +
                 ":div[@class='HoverImg u-mb1'][following::h2[@id='desktop']]");
@@ -20,9 +23,11 @@ public class DemosPageSteps {
             sfa.assertTrue(pic.has(attribute(Constants.CLASS, Constants.PURPLE)), Constants.HOVERERRORMESSAGE);
         }
         sfa.assertTrue(webPics.get(0).hover().innerHtml().contains(Constants.UICONDITION), Constants.UIERROR);
+        sfa.assertAll();
         return this;
     }
 
+    @Step("print which desktop elements have microsoft buttons")
     public DemosPageSteps microsoftButtonOnDesktopElement(){
         ElementsCollection desktopElements = $$x("//h2[@id='desktop']/following:" +
                 ":div[contains(@data-placeholder-label, 'Column')][following::h2[@id='mobile']]");
@@ -34,6 +39,7 @@ public class DemosPageSteps {
         return this;
     }
 
+    @Step("Assert that Xamarin element has microsoft, apple and google stores buttons present")
     public DemosPageSteps xamarinValidations(){
         SelenideElement xamarin = $(By.id(Constants.XAMARINID));
         Assert.assertTrue(
@@ -42,27 +48,4 @@ public class DemosPageSteps {
                         xamarin.innerHtml().contains(Constants.GOOGLE));
         return this;
     }
-
-    public double getTotalPrice() {
-        String tp = $(".u-fr.e2e-total-price").getText();
-        return Double.parseDouble(tp
-                .replace("$", "")
-                .replace(",", "")
-                .replace("US ", ""));
-    }
-
-    public double getUnitPrice() {
-        String up = $("span.e2e-price-per-license.ng-star-inserted").getText();
-        return Double.parseDouble(up
-                .replace("$", "")
-                .replace(",", ""));
-    }
-    public double getDiscountAmounts(SelenideElement element){
-        String text = element.getText();
-        return Double.parseDouble(text
-                .replace("$", "")
-                .replace("-", "")
-                .replace(",", ""));
-    }
-
 }

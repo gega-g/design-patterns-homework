@@ -10,6 +10,8 @@
                 <methods>
                     <include name="validateDemosDesign"/>
                     <include name="validateOrderMechanics"/>
+                    <include name="chainedLocatorsTest"/>
+                    <include name="softAssertTest"/>
                 </methods>
             </class>
         </classes>
@@ -22,6 +24,8 @@
                 <methods>
                     <include name="validateDemosDesign"/>
                     <include name="validateOrderMechanics"/>
+                    <include name="chainedLocatorsTest"/>
+                    <include name="softAssertTest"/>
                 </methods>
             </class>
         </classes>
@@ -34,6 +38,8 @@
                 <methods>
                     <include name="validateDemosDesign"/>
                     <include name="validateOrderMechanics"/>
+                    <include name="chainedLocatorsTest"/>
+                    <include name="softAssertTest"/>
                 </methods>
             </class>
         </classes>
