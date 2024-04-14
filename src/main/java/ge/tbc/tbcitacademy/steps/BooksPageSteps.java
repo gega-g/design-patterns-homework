@@ -3,6 +3,7 @@ package ge.tbc.tbcitacademy.steps;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import ge.tbc.tbcitacademy.data.Constants;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.testng.asserts.SoftAssert;
 
@@ -17,7 +18,8 @@ public class BooksPageSteps {
     ElementsCollection books;
     List<SelenideElement> correctBooks = new ArrayList<>();
 
-    public BooksPageSteps JSBooksByMedia() {
+    @Step("get all JS books with publisher O'Reilly Media")
+    public BooksPageSteps printAllJSBooksByMedia() {
         ElementsCollection booksRow = $$(".rt-tr-group");
 
         for (SelenideElement bookRow : booksRow) {
@@ -32,6 +34,7 @@ public class BooksPageSteps {
         return this;
     }
 
+    @Step("find all books from the table")
     public BooksPageSteps findAllBooksFromTable(){
         SelenideElement table = $(".rt-table").find(".rt-tbody");
         books = table
@@ -41,6 +44,7 @@ public class BooksPageSteps {
         return this;
     }
 
+    @Step("get all books with publisher O'Reilly Media and title containing JS")
     public BooksPageSteps correctBooksFromTable(){
         for (SelenideElement book:books){
             String title = book.find(".rt-td:nth-child(2)").getText();
@@ -52,6 +56,7 @@ public class BooksPageSteps {
         return this;
     }
 
+    @Step("Assert that all books with publisher O'Reilly Media and title containing JS is equal to 10")
     public BooksPageSteps titlesOfBooksEquals10(){
         List<String> bookTitles = new ArrayList<>();
         for (SelenideElement book : correctBooks) {
